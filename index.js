@@ -5,6 +5,7 @@ const app = express();
 
 const studentRoutes = require('./routes/studentRoute')
 const courseRoutes = require('./routes/courseRoutes')
+const userRoutes = require('./routes/userRoutes')
 
 app.use(cors({
     origin: 'http://localhost:5175',
@@ -17,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(studentRoutes);
 app.use(courseRoutes);
+app.use(userRoutes)
 
 
 //handling 404 error

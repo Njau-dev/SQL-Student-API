@@ -24,6 +24,7 @@ db.sequelize = sequelize;
 // Load the student model
 db.students = require('./studentModel')(sequelize, DataTypes);
 db.courses = require('./courseModel')(sequelize, DataTypes);
+db.users = require('./userModel')(sequelize, DataTypes)
 
 // Synchronize the database
 db.sequelize.sync({ force: false }) // No dropping existing tables
