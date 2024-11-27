@@ -1,5 +1,4 @@
 const bcrypt = require("bcrypt")
-// const {sequelize, DataTypes} = require("sequelize")
 
 module.exports = (sequelize, DataTypes) => {
 
@@ -17,10 +16,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false
         },
-        // role:{
-        //     type: DataTypes.STRING,
-        //     allowNull: true
-        // }
+        role: {
+            type: DataTypes.ENUM('user', 'admin'),
+            defaultValue: 'user',
+        }
     });
 
     // function to hash password before saving...............

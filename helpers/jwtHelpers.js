@@ -10,7 +10,7 @@ module.exports = {
             const options = {
                 expiresIn: '45m',
                 issuer: 'ibrahim',
-                audience: String(UserId)
+                audience: UserId.toString(),
             }
             JWT.sign(payload, secret, options, (error, token) => {
                 if (error) reject(error);
@@ -68,9 +68,12 @@ module.exports = {
     restrict: (...allowedRoles) => {
         return (req, res, next) => {
             const userRole = req.payload.role
+            console.log(userRole);
 
             if (!userRole || allowedRoles.includes(userRole)) {
-                return next(createError.Forbidden('Sorry! You do not have permission to perform this action'))
+                return next(
+                    createError.Forbidden('Sorry! You do not have permission to perform this action')
+                )
             }
             next()
         }

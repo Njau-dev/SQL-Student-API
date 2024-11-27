@@ -57,7 +57,7 @@ module.exports = {
             if (!isMatch) throw createError.Unauthorized("Username/Password  not valid");
 
             // if password is matching 
-            const accessToken = await signAccessToken(user.user_id);
+            const accessToken = await signAccessToken(user.user_id, user.role);
             const refreshToken = await signRefreshToken(user.user_id);
 
             res.send({ accessToken, refreshToken })
@@ -67,6 +67,32 @@ module.exports = {
                 return next(createError.BadRequest("Invalid Username/Password"))
             next(error)
 
+        }
+    },
+
+    updateUserRole: async (req, res, next) => {
+        try {
+            const { userId } = req.params; // User ID from the request parameters
+            const { role } = req.body; // New role from the request body
+
+            // Validate the role
+            if (!["user", "admin"].includes(role)) {
+                throw createError.BadRequest("Invalid role. Role must be either 'user' or 'admin'.");
+            }
+
+            // Find the user
+            const user = await User.findByPk(userId);
+            if (!user) {
+                throw createError.NotFound("User not found.");
+            }
+
+            // Update the role
+            user.role = role;
+            await user.save();
+
+            res.status(200).send({ message: `User role updated to '${role}'`, user });
+        } catch (error) {
+            next(error);
         }
     }
 }

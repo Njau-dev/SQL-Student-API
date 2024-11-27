@@ -8,7 +8,7 @@ const courseRoutes = require('./routes/courseRoutes')
 const userRoutes = require('./routes/userRoutes')
 
 app.use(cors({
-    origin: 'http://localhost:5175',
+    origin: ['http://localhost:5175', 'http://localhost:5173'],
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
     credentials: true
 }));
